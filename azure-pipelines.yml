@@ -29,7 +29,7 @@ steps:
 
 - script: 'echo "$(Build.DefinitionName), $(Build.BuildId), $(Build.BuildNumber)" > buildinfo.txt'
   displayName: 'Write build info'
-  workingDirectory: $(buildConfiguration)
+  workingDirectory: $(wwwrootDir)
 
 - task: DotNetCoreCLI@2
   displayName: 'Restore project dependencies'
@@ -50,7 +50,7 @@ steps:
       command: 'publish'
       projects: '**/*.csproj'
       publishWebProjects: false
-      arguments: '--no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(buildConfiguration)'
+      arguments: '--no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(wwwrootDir)'
       zipAfterPublish: true
   
 - task: PublishBuildArtifacts@1
